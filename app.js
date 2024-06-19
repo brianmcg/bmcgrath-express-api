@@ -6,8 +6,8 @@ const port = 3000;
 
 app.use('/emails', routes);
 
-app.get("/up", (req, res) => {
-  res.send('Hello World!');
+app.get('/up', (req, res) => {
+  res.send('Server is up!');
 });
 
 app.listen(port, () => {
