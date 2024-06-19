@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const config = require('./config');
+const config = require('../config');
 
 const router = express.Router();
 const jsonParser = bodyParser.json();
@@ -12,10 +12,6 @@ const transporter = nodemailer.createTransport({
   port,
   auth: { user, pass },
   tls: { rejectUnauthorized: false }
-});
-
-router.get('/test', (req, res) => {
-  res.status(200).json({ message: error.message });
 });
 
 router.post('/send', jsonParser, async (req, res) => {
