@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const emails = require('./routes/emails');
 const auth = require('./auth');
 
@@ -7,7 +8,8 @@ const port = 8080;
 
 const addRoutes = (path, routes) => app.use(`/api/${path}`, routes);
 
-// app.use(auth.basic);
+app.use(cors());
+app.use(auth.basic);
 
 app.get('/up', (req, res) => {
   res.send('Server is up!');
