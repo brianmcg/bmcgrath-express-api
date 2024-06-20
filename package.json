@@ -4,6 +4,8 @@
   "description": "An API for sending emails",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian McGrath",
@@ -15,5 +17,10 @@
     "express": "^4.19.2",
     "mailtrap": "^3.3.0",
     "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.5.0",
+    "eslint": "^9.5.0",
+    "globals": "^15.6.0"
   }
 }
