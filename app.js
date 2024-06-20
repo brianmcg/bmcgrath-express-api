@@ -7,7 +7,7 @@ const port = 8080;
 
 const addRoutes = (path, routes) => app.use(`/api/${path}`, routes);
 
-app.use(auth);
+// app.use(auth.basic);
 
 app.get('/up', (req, res) => {
   res.send('Server is up!');
