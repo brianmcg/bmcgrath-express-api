@@ -10,14 +10,19 @@ const transporter = nodemailer.createTransport({
   tls: { rejectUnauthorized: false }
 });
 
-function send({ name, address, message }) {
-	return transporter.sendMail({
+async function send({ name, address, message }) {
+	const response = await transporter.sendMail({
     from: sender,
     to: recipient,
     subject: `Message from ${name} <${address}>`,
     text: message,
     html: `<p>name: ${name} <p>email: ${address}</p></p><p>${message}</p>`,
   });
+
+  const [messageId] = response.messageId.replace(/[<>]/g, '').split('@');
+
+  return { success: true, messageId };
+
 }
 
 module.exports = { send };
