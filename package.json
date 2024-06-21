@@ -8,6 +8,7 @@
     "dev": "nodemon app.js",
     "build": "webpack",
     "lint": "eslint .",
+    "deploy": "sh scripts/deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian McGrath",

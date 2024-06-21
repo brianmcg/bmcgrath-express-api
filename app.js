@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use(auth.basic);
 
-app.get('/up', (req, res) => res.send('Server is up!'));
+app.get('/up', (req, res) => res.send('Server is up and running!'));
 
 addApiRoute('emails', emails);
 
