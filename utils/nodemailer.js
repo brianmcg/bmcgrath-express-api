@@ -33,9 +33,9 @@ async function send({ name, address, message }) {
   logger.info({ response });
   logger.info(`Successfully sent email to ${recipient}`);
 
-  const [messageId] = response.messageId.replace(/[<>]/g, '').split('@');
+  const [id] = response.messageId.replace(/[<>]/g, '').split('@');
 
-  return { messageId };
+  return { id };
 }
 
 module.exports = { send };

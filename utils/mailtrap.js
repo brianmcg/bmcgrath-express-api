@@ -28,9 +28,9 @@ async function send({ name, address, message }) {
   logger.info({ response });
   logger.info(`Successfully sent email to ${recipient}`);
 
-  const [messageId] = response.message_ids;
+  const [id] = response.message_ids;
 
-  return { messageId };
+  return { id };
 }
 
 module.exports = { send };
