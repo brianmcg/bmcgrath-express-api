@@ -9,10 +9,9 @@ const jsonParser = bodyParser.json();
 router.post('/send', jsonParser, async (req, res) => {
   try {
     const result = await nodemailer.send(req.body.email);
-    logger.info(result);
     res.status(200).json(result);
   } catch (error) {
-    logger.error(error);
+    logger.error(error.toString());
     res.status(500).json({ message: 'Failed to send email' });
   }
 });
