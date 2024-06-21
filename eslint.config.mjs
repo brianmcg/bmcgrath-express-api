@@ -10,8 +10,7 @@ export default [{
   languageOptions: {
     globals: {
       ...globals.browser,
-      process: 'readonly',
-      Buffer: 'readonly',
+      ...globals.node,
     }
   }
 },
