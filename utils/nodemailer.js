@@ -1,8 +1,8 @@
 const nodemailer = require('nodemailer');
-const config = require('../config');
+const env = require('../config/env');
 const logger = require('../utils/logger');
 
-const { token, sender, recipient } = config.email;
+const { token, sender, recipient } = env.email;
 
 const transporter = nodemailer.createTransport({
   host: 'live.smtp.mailtrap.io',
