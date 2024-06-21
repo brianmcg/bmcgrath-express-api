@@ -11,6 +11,7 @@ async function send({ name, address, message }) {
 
   const title = `Message from ${name}`;
   const reply = `Reply to ${address}`;
+  const paragraphs = message.split('\n').filter(Boolean);
 
   const response = await client.send({
     from: { email: sender, name: 'Mailtrap 📧' },
@@ -19,8 +20,8 @@ async function send({ name, address, message }) {
     text: `${title}. ${message}. ${reply}`,
     html: `
       <h1>${title}</h1>
-      <p>${message}</p>
-      <p>${reply}</p>
+      ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+      <h4>${reply}</4>
     `,
   });
 
