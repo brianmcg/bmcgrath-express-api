@@ -1,9 +1,6 @@
 const nodemailer = require('nodemailer');
 const env = require('../config/env');
 const logger = require('../utils/logger');
-const handlebars = require('../utils/handlebars');
-
-const template = handlebars.compile('templates/email.hbs');
 
 const { token, sender, recipient } = env.email;
 
@@ -26,10 +23,14 @@ async function send({ name, address, message }) {
     to: recipient,
     subject: `Mailtrap message from ${name}`,
     text: `${title}. ${message}. ${reply}`,
-    html: template({ title, paragraphs, reply }),
+    html: `
+      <h1>${title}</h1>
+      ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+      <h4>${reply}</4>
+    `,
   });
 
-  logger.info(`Recieved response from nodemailer: ${JSON.stringify(response)}`);
+  logger.info({ response });
   logger.info(`Successfully sent email to ${recipient}`);
 
   const [id] = response.messageId.replace(/[<>]/g, '').split('@');
