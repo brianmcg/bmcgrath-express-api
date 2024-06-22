@@ -19,8 +19,9 @@ app.use(compression());
 app.use(minify());
 app.use(helmet());
 app.use(cors());
-app.use(RateLimit({ windowMs: 60000, max: 20 }));
 app.use(auth.basic);
+app.use(RateLimit({ windowMs: 60000, max: 20 }));
+app.set('trust proxy', 1);
 
 app.get('/up', (req, res) => res.send('Server is up and running!'));
 
