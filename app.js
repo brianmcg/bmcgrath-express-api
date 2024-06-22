@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
 const helmet = require('helmet');
-// const RateLimit = require('express-rate-limit');
+const RateLimit = require('express-rate-limit');
 const minify = require('express-minify');
 
 const logger = require('./utils/logger');
@@ -19,7 +19,7 @@ app.use(compression());
 app.use(minify());
 app.use(helmet());
 app.use(cors());
-// app.use(RateLimit({ windowMs: 60000, max: 20 }));
+app.use(RateLimit({ windowMs: 60000, max: 20 }));
 app.use(auth.basic);
 
 app.get('/up', (req, res) => res.send('Server is up and running!'));
