@@ -1,7 +1,7 @@
 const { MailtrapClient } = require('mailtrap');
-const env = require('../config/env');
-const logger = require('../utils/logger');
-const { getTemplate } = require('../utils/handlebars');
+const env = require('@config/env');
+const logger = require('@utils/logger');
+const { getTemplate } = require('@utils/handlebars');
 
 const { token, sender, recipient } = env.email;
 

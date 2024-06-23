@@ -1,3 +1,5 @@
+require('module-alias/register')
+
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
@@ -5,8 +7,8 @@ const helmet = require('helmet');
 const RateLimit = require('express-rate-limit');
 const minify = require('express-minify');
 
-const logger = require('./utils/logger');
-const auth = require('./utils/auth');
+const logger = require('@utils/logger');
+const auth = require('@utils/auth');
 const apiRouter = require('./routers/api');
 
 const port = 8080;
