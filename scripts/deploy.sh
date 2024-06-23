@@ -19,9 +19,11 @@ function output() {
 }
 
 function deploy () {
-  output "Starting deploy"
   . ~/.nvm/nvm.sh
-  cd "/home/azureuser/apps/bmcgrath-express-api/"
+  cd "/home/azureuser/apps/bmcgrath-express-api"
+
+  output "Running git pull"
+  git pull
 
   output "Running npm install"
   npm install

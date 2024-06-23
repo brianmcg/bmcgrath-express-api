@@ -20,7 +20,7 @@ app.use(auth.basic);
 app.use(RateLimit({ windowMs: 60000, max: 20 }));
 app.set('trust proxy', 1);
 
-app.get('/up', (req, res) => res.send('Server is up!'));
+app.get('/up', (req, res) => res.send('Server is up!!'));
 
 app.use('/api/emails', emails);
 
