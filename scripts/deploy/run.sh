@@ -16,7 +16,6 @@ function echo_box() {
 
   divider="${divider}+"
 
-  echo
   echo ${divider}
   echo ${string}
   echo ${divider}
@@ -36,16 +35,21 @@ function deploy () {
   echo
 
   echo_box "Running git pull"
+  echo
   git checkout main
   git pull
+  echo
 
   echo_box "Running npm install"
   npm install
+  echo
 
   echo_box "Running npm build"
   npm run build
+  echo
 
   echo_box "Reloading nginx"
+  echo
   sudo rm -f "${NGINX_ENABLED_PATH}"/*
   sudo cp "config/nginx/${NGINX_CONFIG_FILE}" "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}"
   sudo ln -s "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}" "${NGINX_ENABLED_PATH}/${NGINX_CONFIG_FILE}"
