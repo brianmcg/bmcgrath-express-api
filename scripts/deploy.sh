@@ -49,7 +49,13 @@ function deploy () {
 
   echo_box "Running build"
   echo
-  ./node_modules/webpack/bin/webpack.js --env release=${TIMESTAMP}
+  webpack --env release=${TIMESTAMP}
+  echo
+
+  echo_box "Cleaning dependencies"
+  npm prune --omit=dev
+  node-prune node_modules | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"
+  clean-modules --yes
 
   rm -f "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
