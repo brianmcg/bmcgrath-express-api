@@ -1,10 +1,5 @@
 #!/bin/bash
 
-REPO_PATH="/home/azureuser/apps/bmcgrath-express-api"
-NGINX_AVAILABLE_PATH="/home/azureuser/nginx/sites-available"
-NGINX_ENABLED_PATH="/home/azureuser/nginx/sites-enabled"
-NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
-
 function echo_box() {
   string="| ${1} |"
   length=${#string}-2
@@ -22,30 +17,45 @@ function echo_box() {
 }
 
 function deploy () {
-  REPO_PATH="/home/azureuser/apps/bmcgrath-express-api"
+  APP_PATH="/home/azureuser/apps/bmcgrath-express-api"
   NGINX_AVAILABLE_PATH="/home/azureuser/nginx/sites-available"
   NGINX_ENABLED_PATH="/home/azureuser/nginx/sites-enabled"
   NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
+  TIMESTAMP=`date +%s`
 
   source ~/.nvm/nvm.sh
 
-  cd $REPO_PATH
+  # cat "${APP_PATH}/scripts/deploy/figlet/title"
+  ./node_modules/figlet/bin/index.js "Deploying App"
+  echo
+
+  echo_box "Fetching latest code"
+  echo
+
+  if test -d "${APP_PATH}/repo"; then
+    cd "${APP_PATH}/repo"
+    git pull
+  else
+    git clone git@github.com:brianmcg/bmcgrath-express-api.git "${APP_PATH}/repo"
+    cp -r "${APP_PATH}/shared/." "${APP_PATH}/repo/"
+    cd "${APP_PATH}/repo"
+  fi
   
-  cat scripts/deploy/figlet/title
-  echo
-
-  echo_box "Running git pull"
-  echo
   git checkout main
-  git pull
   echo
 
-  echo_box "Running npm install"
+  echo_box "Installing dependencies"
   npm install
   echo
 
-  echo_box "Running npm build"
-  npm run build
+  echo_box "Running build"
+  echo
+  ./node_modules/webpack/bin/webpack.js --env release=${TIMESTAMP}
+
+  rm -f "${APP_PATH}/current"
+  sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
+  sudo ln -s "${APP_PATH}/repo/node_modules" "${APP_PATH}/current/node_modules"
+
   echo
 
   echo_box "Reloading nginx"

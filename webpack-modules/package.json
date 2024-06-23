@@ -29,12 +29,14 @@
     "winston": "^3.13.0"
   },
   "devDependencies": {
-    "webpack-cli": "^5.1.4",
-    "webpack": "^5.92.1",
     "@eslint/js": "^9.5.0",
+    "copy-modules-webpack-plugin": "^2.2.1",
+    "copy-node-modules": "^1.1.1",
     "eslint": "^9.5.0",
     "globals": "^15.6.0",
     "nodemon": "^3.1.4",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
   }
 }
