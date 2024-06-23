@@ -1,9 +1,9 @@
 const nodemailer = require('nodemailer');
 const env = require('../config/env');
 const logger = require('../utils/logger');
-const handlebars = require('../utils/handlebars');
+const { getTemplate } = require('../utils/handlebars');
 
-const template = handlebars.compile('templates/email.hbs');
+const template = getTemplate('templates/email.hbs');
 
 const { token, sender, recipient } = env.email;
 
