@@ -1,5 +1,5 @@
 {
-  "name": "mail-api",
+  "name": "bmcgrath-express-api",
   "version": "1.0.0",
   "description": "An API for sending emails",
   "main": "app.js",
