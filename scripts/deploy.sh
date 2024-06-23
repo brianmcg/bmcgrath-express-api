@@ -15,7 +15,6 @@ function output() {
   echo ${divider}
   echo ${string}
   echo ${divider}
-  echo
 }
 
 function deploy () {
@@ -31,7 +30,7 @@ function deploy () {
   output "Running npm build"
   npm run build
 
-  output "Restarting nginx"
+  output "Reloading nginx"
   sudo service nginx reload
   sudo service nginx status
 }
