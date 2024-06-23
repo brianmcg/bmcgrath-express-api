@@ -24,8 +24,6 @@ function deploy () {
   TIMESTAMP=`date +%s`
 
   source ~/.nvm/nvm.sh
-
-  # cat "${APP_PATH}/scripts/deploy/figlet/title"
   
   figlet "Deploying App"
   echo
@@ -35,6 +33,8 @@ function deploy () {
 
   if test -d "${APP_PATH}/repo"; then
     cd "${APP_PATH}/repo"
+    git stash
+    git checkout main
     git pull
   else
     git clone git@github.com:brianmcg/bmcgrath-express-api.git "${APP_PATH}/repo"
@@ -42,9 +42,7 @@ function deploy () {
     cd "${APP_PATH}/repo"
   fi
   
-  git checkout main
   echo
-
   echo_box "Installing dependencies"
   npm install
   echo
