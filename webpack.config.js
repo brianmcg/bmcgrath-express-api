@@ -1,13 +1,6 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
-const fs = require('fs');
-
-
-const nodeModules = {};
-
-fs.readdirSync(path.resolve(__dirname, 'node_modules'))
-    .filter(x => ['.bin'].indexOf(x) === -1)
-    .forEach(mod => { nodeModules[mod] = `commonjs ${mod}`; });
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
@@ -15,10 +8,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'app.js',
+    filename: 'final.js',
   },
-  target: 'node',
-  externals: nodeModules,
+  externalsPresets: { node: true }, // in order to ignore built-in modules like path, fs, etc.
+  externals: [nodeExternals()],
   plugins: [
     new CopyPlugin({
       patterns: [
@@ -27,11 +20,5 @@ module.exports = {
         { from: 'templates', to: 'templates' },
       ],
     }),
-  ],
-  ignoreWarnings: [
-    {
-      module: /node_modules\/express\/lib\/view\.js/,
-      message: /the request of a dependency is an expression/,
-    },
   ],
 };
