@@ -5,7 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = env => {
   return {
     mode: 'production',
-    entry: './app.js',
+    entry: './src/app.js',
     output: {
       path: path.join(__dirname, env.release ? `../releases/${env.release}` : 'dist'),
       publicPath: '/',

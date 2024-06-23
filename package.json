@@ -2,10 +2,10 @@
   "name": "bmcgrath-express-api",
   "version": "1.0.0",
   "description": "An API for sending emails",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "lint": "eslint .",
     "deploy": "sh scripts/deploy.sh",
     "build": "webpack",
