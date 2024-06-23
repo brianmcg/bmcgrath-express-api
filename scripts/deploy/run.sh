@@ -29,8 +29,11 @@ function deploy () {
   NGINX_ENABLED_PATH="/home/azureuser/nginx/sites-enabled"
   NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
 
+
   . ~/.nvm/nvm.sh
   cd $REPO_PATH
+  
+  cat scripts/deploy/figlet/title
 
   echo_box "Running git pull"
   git checkout main
