@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mailtrap = require('@utils/mailtrap');
-const logger = require('@utils/logger');
+const mailtrap = require('../utils/mailtrap');
+const logger = require('../utils/logger');
 
 const router = express.Router();
 const jsonParser = bodyParser.json();
