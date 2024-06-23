@@ -1,8 +1,8 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 const Handlebars = require('handlebars');
 
-function getTemplate(fileName) {
-  const template = fs.readFileSync(fileName, 'utf-8');
+async function getTemplate(fileName) {
+  const template = await fs.readFile(fileName, 'utf-8');
   return Handlebars.compile(template);
 }
 

@@ -3,14 +3,14 @@ const env = require('../config/env');
 const logger = require('../utils/logger');
 const { getTemplate } = require('../utils/handlebars');
 
-const template = getTemplate('templates/email.hbs');
-
 const { token, sender, recipient } = env.email;
 
 const client = new MailtrapClient({ endpoint: 'https://send.api.mailtrap.io/', token });
 
 async function send({ name, address, message }) {
   logger.info(`Sending email to ${recipient}`);
+
+  const template = await getTemplate('templates/email.hbs');
 
   const title = `Message from ${name}`;
   const reply = `Reply to ${address}`;

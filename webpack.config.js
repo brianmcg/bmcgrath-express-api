@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'final.js',
+    filename: 'app.min.js',
   },
   externalsPresets: { node: true }, // in order to ignore built-in modules like path, fs, etc.
   externals: [nodeExternals()],
