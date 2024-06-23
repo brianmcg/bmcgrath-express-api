@@ -10,7 +10,7 @@ module.exports = {
     publicPath: '/',
     filename: 'app.min.js',
   },
-  externalsPresets: { node: true }, // in order to ignore built-in modules like path, fs, etc.
+  externalsPresets: { node: true },
   externals: [nodeExternals()],
   plugins: [
     new CopyPlugin({

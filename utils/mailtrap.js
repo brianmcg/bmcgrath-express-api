@@ -24,12 +24,9 @@ async function send({ name, address, message }) {
     html: template({ title, paragraphs, reply }),
   });
 
-  logger.info(`Recieved response from mailtrap: ${JSON.stringify(response)}`);
-  logger.info(`Successfully sent email to ${recipient}`);
+  logger.info('Recieved response from mailtrap', response);
 
-  const [id] = response.message_ids;
-
-  return { id };
+  return { id: response.message_ids[0] };
 }
 
 module.exports = { send };

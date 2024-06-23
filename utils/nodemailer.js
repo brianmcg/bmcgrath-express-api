@@ -29,12 +29,9 @@ async function send({ name, address, message }) {
     html: template({ title, paragraphs, reply }),
   });
 
-  logger.info(`Recieved response from nodemailer: ${JSON.stringify(response)}`);
-  logger.info(`Successfully sent email to ${recipient}`);
+  logger.info('Recieved response from nodemailer', response);
 
-  const [id] = response.messageId.replace(/[<>]/g, '').split('@');
-
-  return { id };
+  return { id: response.messageId.replace(/[<>]/g, '').split('@')[0] };
 }
 
 module.exports = { send };

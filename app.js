@@ -10,10 +10,7 @@ const auth = require('./utils/auth');
 const emails = require('./routes/emails');
 
 const port = 8080;
-
 const app = express();
-
-const addApiRoute = (path, routes) => app.use(`/api/${path}`, routes);
 
 app.use(compression());
 app.use(minify());
@@ -25,6 +22,6 @@ app.set('trust proxy', 1);
 
 app.get('/up', (req, res) => res.send('Server is up and running!'));
 
-addApiRoute('emails', emails);
+app.use('/api/emails', emails);
 
 app.listen(port, () => logger.info(`Server running at http://localhost:${port}`));
