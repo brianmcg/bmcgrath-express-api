@@ -4,7 +4,6 @@ REPO_PATH="/home/azureuser/apps/bmcgrath-express-api"
 NGINX_AVAILABLE_PATH="/home/azureuser/nginx/sites-available"
 NGINX_ENABLED_PATH="/home/azureuser/nginx/sites-enabled"
 NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
-VAR=${1:-"main"}
 
 function echo_box() {
   string="| ${1} |"
@@ -29,11 +28,12 @@ function deploy () {
   NGINX_ENABLED_PATH="/home/azureuser/nginx/sites-enabled"
   NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
 
+  source ~/.nvm/nvm.sh
 
-  . ~/.nvm/nvm.sh
   cd $REPO_PATH
   
   cat scripts/deploy/figlet/title
+  echo
 
   echo_box "Running git pull"
   git checkout main
@@ -46,7 +46,7 @@ function deploy () {
   npm run build
 
   echo_box "Reloading nginx"
-  sudo rm -f "${NGINX_ENABLED_PATH}/${NGINX_CONFIG_FILE}"
+  sudo rm -f "${NGINX_ENABLED_PATH}"/*
   sudo cp "config/nginx/${NGINX_CONFIG_FILE}" "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}"
   sudo ln -s "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}" "${NGINX_ENABLED_PATH}/${NGINX_CONFIG_FILE}"
   sudo service nginx reload
