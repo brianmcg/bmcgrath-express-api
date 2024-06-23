@@ -32,7 +32,8 @@ function deploy () {
   npm run build
 
   output "Restarting nginx"
-  sudo service nginx restart
+  sudo service nginx reload
+  sudo service nginx status
 }
 
 ssh azure "$(typeset -f); deploy"
