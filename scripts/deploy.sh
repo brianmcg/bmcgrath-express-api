@@ -26,7 +26,8 @@ function deploy () {
   source ~/.nvm/nvm.sh
 
   # cat "${APP_PATH}/scripts/deploy/figlet/title"
-  ./node_modules/figlet/bin/index.js "Deploying App"
+  
+  figlet "Deploying App"
   echo
 
   echo_box "Fetching latest code"
