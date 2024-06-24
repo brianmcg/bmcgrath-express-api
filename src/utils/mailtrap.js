@@ -1,9 +1,7 @@
 const { MailtrapClient } = require('mailtrap');
-const env = require('../config/env');
+const { token, sender, recipient } = require('../config/env');
 const logger = require('../utils/logger');
 const { getTemplate } = require('../utils/handlebars');
-
-const { token, sender, recipient } = env.email;
 
 const client = new MailtrapClient({ endpoint: 'https://send.api.mailtrap.io/', token });
 

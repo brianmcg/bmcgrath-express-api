@@ -1,6 +1,4 @@
-const env = require('../config/env');
-
-const { apiUser, apiPass } = env.email;
+const { apiUser, apiPass }  = require('../config/env');
 
 function basic(req, res, next) {
   const authheader = req.headers.authorization;

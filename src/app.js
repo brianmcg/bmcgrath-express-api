@@ -7,7 +7,7 @@ const minify = require('express-minify');
 
 const logger = require('./utils/logger');
 const auth = require('./utils/auth');
-const emails = require('./routes/emails');
+const emails = require('./routers/emails');
 
 const port = 8080;
 const app = express();
