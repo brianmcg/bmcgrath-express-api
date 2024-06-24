@@ -22,6 +22,7 @@ function deploy () {
   NGINX_ENABLED_PATH="/home/azureuser/nginx/sites-enabled"
   NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
   TIMESTAMP=`date +%s`
+  KEEP_RELEASES=5
 
   source ~/.nvm/nvm.sh
   
@@ -52,7 +53,7 @@ function deploy () {
   webpack --env release=${TIMESTAMP}
   echo
 
-  echo_box "Cleaning dependencies"
+  echo_box "Cleaning up"
   npm prune --omit=dev
   node-prune node_modules | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"
   clean-modules --yes
@@ -60,9 +61,17 @@ function deploy () {
   rm -f "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/repo/node_modules" "${APP_PATH}/current/node_modules"
+  
+  INDEX=0
+
+  for DIR in `ls -t ${APP_PATH}/releases`; do
+    if [ $INDEX -ge $KEEP_RELEASES ]; then
+      rm -rf "${APP_PATH}/releases/${DIR}"
+    fi
+    INDEX=$((INDEX + 1))
+  done
 
   echo
-
   echo_box "Reloading nginx"
   echo
   sudo rm -f "${NGINX_ENABLED_PATH}"/*
