@@ -67,9 +67,9 @@ function deploy () {
   # Clean up #
   #----------#
   echo_box "Cleaning up"
-  npm prune --omit=dev
-  node-prune node_modules | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"
-  clean-modules --yes
+  # npm prune --omit=dev
+  # node-prune node_modules | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"
+  # clean-modules --yes
   rm -f "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/repo/node_modules" "${APP_PATH}/current/node_modules"
