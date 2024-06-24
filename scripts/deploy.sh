@@ -63,9 +63,9 @@ function deploy () {
   webpack --env release=${TIMESTAMP}
   echo
 
-  #-------------------#
-  # Prune depenencies #
-  #-------------------#
+  #----------#
+  # Clean up #
+  #----------#
   echo_box "Cleaning up"
   npm prune --omit=dev
   node-prune node_modules | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"
@@ -73,14 +73,7 @@ function deploy () {
   rm -f "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/repo/node_modules" "${APP_PATH}/current/node_modules"
-  echo
-  
-  #---------------------#
-  # Delete old releases #
-  #---------------------#
-  echo_box "Removing old releases"
-  echo
-  
+
   INDEX=0
 
   for DIR in `ls -t ${APP_PATH}/releases`; do
