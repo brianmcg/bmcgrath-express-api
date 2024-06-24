@@ -73,7 +73,8 @@ function deploy () {
   rm -f "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/repo/node_modules" "${APP_PATH}/current/node_modules"
-
+  echo
+  
   INDEX=0
 
   for DIR in `ls -t ${APP_PATH}/releases`; do
