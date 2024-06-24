@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const compression = require('compression');
 const helmet = require('helmet');
 const RateLimit = require('express-rate-limit');
@@ -16,7 +16,7 @@ app.use(auth.basic);
 app.use(compression());
 app.use(minify());
 app.use(helmet());
-app.use(cors());
+// app.use(cors());
 app.use(RateLimit({ windowMs: 60000, max: 20 }));
 app.set('trust proxy', 1);
 
