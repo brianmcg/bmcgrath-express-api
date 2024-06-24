@@ -1,9 +1,8 @@
 const nodemailer = require('nodemailer');
-const env = require('../config/env');
-const logger = require('../utils/logger');
-const { getTemplate } = require('../utils/handlebars');
 
-const { token, sender, recipient } = env.email;
+const { token, sender, recipient } = require('../config/env');
+const Logger = require('../utils/logger');
+const { getTemplate } = require('../utils/handlebars');
 
 const transporter = nodemailer.createTransport({
   host: 'live.smtp.mailtrap.io',
@@ -13,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function send({ name, address, message }) {
-  logger.info(`Sending email to ${recipient}`);
+  Logger.info(`Sending email to ${recipient}`);
 
   const template = await getTemplate('templates/email.hbs');
 
@@ -29,7 +28,7 @@ async function send({ name, address, message }) {
     html: template({ title, paragraphs, reply }),
   });
 
-  logger.info('Recieved response from nodemailer', response);
+  Logger.info('Recieved response from nodemailer', response);
 
   return { id: response.messageId.replace(/[<>]/g, '').split('@')[0] };
 }

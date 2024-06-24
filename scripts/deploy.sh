@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function echo_box() {
-  string="| ${1} |"
-  length=${#string}-2
+  content="| ${1} |"
+  length=${#content}-2
   divider="+"
 
   for ((i = 0; i < length; i++)); do
@@ -12,7 +12,7 @@ function echo_box() {
   divider="${divider}+"
 
   echo ${divider}
-  echo ${string}
+  echo ${content}
   echo ${divider}
 }
 
@@ -29,6 +29,9 @@ function deploy () {
   figlet "Deploying App"
   echo
 
+  #-------------------#
+  # Fetch latest code #
+  #-------------------#
   echo_box "Fetching latest code"
   echo
 
@@ -42,36 +45,56 @@ function deploy () {
     cp -r "${APP_PATH}/shared/." "${APP_PATH}/repo/"
     cd "${APP_PATH}/repo"
   fi
-  
+
   echo
+
+  #----------------------#
+  # Install dependencies #
+  #----------------------#
   echo_box "Installing dependencies"
   npm install
   echo
 
+  #-----------#
+  # Run build #
+  #-----------#
   echo_box "Running build"
   echo
   webpack --env release=${TIMESTAMP}
   echo
 
+  #-------------------#
+  # Prune depenencies #
+  #-------------------#
   echo_box "Cleaning up"
   npm prune --omit=dev
   node-prune node_modules | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g"
   clean-modules --yes
-
   rm -f "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/releases/${TIMESTAMP}" "${APP_PATH}/current"
   sudo ln -s "${APP_PATH}/repo/node_modules" "${APP_PATH}/current/node_modules"
+  echo
+  
+  #---------------------#
+  # Delete old releases #
+  #---------------------#
+  echo_box "Removing old releases"
+  echo
   
   INDEX=0
 
   for DIR in `ls -t ${APP_PATH}/releases`; do
     if [ $INDEX -ge $KEEP_RELEASES ]; then
-      rm -rf "${APP_PATH}/releases/${DIR}"
+      rm -rf "${APP_PATH}/releases/${DIR}" -v
     fi
     INDEX=$((INDEX + 1))
   done
 
   echo
+
+  #---------------#
+  # Reoload nginx #
+  #---------------#
   echo_box "Reloading nginx"
   echo
   sudo rm -f "${NGINX_ENABLED_PATH}"/*
