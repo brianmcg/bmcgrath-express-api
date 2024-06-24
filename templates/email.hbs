@@ -3,18 +3,26 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <style>
-      h1 {
-        color: rgb(77, 4, 170);
-      }
+      .email { font-family: Montserrat, sans-serif; }
+      .section { text-align: center; padding: 32px; }
+      .header { font-size: 48px; font-weight: 700; }
+      .content { border-top: solid 1px grey; font-size: 24px; border-bottom: solid 1px grey; }
+      .reply {  font-weight: 700; }
     </style>
   </head>
   <body>
-    <h1>{{title}}</h1>
-    <div>
-      {{#each paragraphs}}
-        <p>{{this}}</p>
-      {{/each}}
-      <h4>{{reply}}</h4>
-    </div>
+    <div class="email">
+      <div class="section header">
+        <span class="header-text">{{title}}</span>
+      </div>
+      <div class="section content">
+        {{#each paragraphs}}
+          <p>{{this}}</p>
+        {{/each}}
+      </div>
+      <div class="section reply">
+        <span class="reply">{{reply}}</span>
+      </div>
+    </div>   
   </body>
 </html>
