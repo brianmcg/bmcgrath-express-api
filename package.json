@@ -4,8 +4,8 @@
   "description": "An API for sending emails",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "start": "cross-env NODE_ENV=production node src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/app.js",
     "lint": "eslint .",
     "deploy": "sh scripts/deploy.sh",
     "build": "webpack",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@eslint/js": "^9.5.0",
     "copy-webpack-plugin": "^12.0.2",
+    "cross-env": "^7.0.3",
     "eslint": "^9.5.0",
     "globals": "^15.6.0",
     "nodemon": "^3.1.4",

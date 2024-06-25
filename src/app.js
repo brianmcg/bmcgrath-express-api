@@ -40,4 +40,6 @@ app.set('trust proxy', 1);
 
 app.get('/up', (req, res) => res.send('Server is up!'));
 
-app.listen(port, () => Logger.info(`Server running at http://localhost:${port}`));
+app.listen(port, () => {
+  Logger.info(`Server running in ${process.env.NODE_ENV} mode at localhost:${port}`);
+});

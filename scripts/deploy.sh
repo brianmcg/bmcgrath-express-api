@@ -23,6 +23,7 @@ function deploy () {
   NGINX_CONFIG_FILE="bmcgrath-express-api.conf"
   TIMESTAMP=`date +%s`
   KEEP_RELEASES=5
+  BRANCH_NAME="main"
 
   source ~/.nvm/nvm.sh
   
@@ -38,12 +39,14 @@ function deploy () {
   if test -d "${APP_PATH}/repo"; then
     cd "${APP_PATH}/repo"
     git stash && git stash clear
-    git checkout main
-    git pull origin main
+    git checkout "${BRANCH_NAME}"
+    git pull origin "${BRANCH_NAME}"
   else
     git clone git@github.com:brianmcg/bmcgrath-express-api.git "${APP_PATH}/repo"
     cp -r "${APP_PATH}/shared/." "${APP_PATH}/repo/"
     cd "${APP_PATH}/repo"
+    git checkout "${BRANCH_NAME}"
+    git pull origin "${BRANCH_NAME}"
   fi
 
   echo

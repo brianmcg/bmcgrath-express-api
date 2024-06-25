@@ -18,6 +18,7 @@ async function send({ name, address, message }) {
   const paragraphs = message.split('\n').filter(Boolean);
 
   const response = await client.send({
+    category: process.env.NODE_ENV.toUpperCase(),
     from: { email: mailtrapSender, name: 'Mailtrap 📧' },
     to: [{ email: mailtrapRecipient }],
     subject: `Mailtrap message from ${name}`,
