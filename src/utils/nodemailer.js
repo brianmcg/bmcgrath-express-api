@@ -1,17 +1,19 @@
 const nodemailer = require('nodemailer');
-const { mailtrapToken, mailtrapSender, mailtrapRecipient }  = require('@config/env');
+const { nodemailerHost, nodemailerUser, nodemailerPass, mailtrapSender, emailRecipient }  = require('@config/env');
 const Logger = require('@utils/logger');
 const { getTemplate } = require('@utils/handlebars');
 
 const transporter = nodemailer.createTransport({
-  host: 'live.smtp.mailtrap.io',
+  host: nodemailerHost,
   port: 587,
-  auth: { user: 'api', pass: mailtrapToken },
-  tls: { rejectUnauthorized: true }
+  auth: { user: nodemailerUser, pass: nodemailerPass },
+  tls: { rejectUnauthorized: false }
 });
 
+
 async function send({ name, address, message }) {
-  Logger.info(`Sending email to ${mailtrapRecipient}`);
+  Logger.info(`Sending email to ${emailRecipient} from ${mailtrapSender}`);
+  Logger.info(`Sent by ${name} <${address}>`);
 
   const template = await getTemplate('templates/email.hbs');
 
@@ -21,10 +23,11 @@ async function send({ name, address, message }) {
 
 	const response = await transporter.sendMail({
     from: `"Mailtrap 📧" <${mailtrapSender}>`,
-    to: mailtrapRecipient,
+    to: emailRecipient,
     subject: `Mailtrap message from ${name}`,
     text: `${title}. ${message}. ${reply}`,
     html: template({ title, paragraphs, reply }),
+    category: process.env.NODE_ENV.toUpperCase(),
   });
 
   Logger.info('Recieved nodemailer response', response);

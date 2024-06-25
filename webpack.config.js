@@ -21,7 +21,7 @@ module.exports = env => ({
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: '.env' },
+        { from: '.env.*' },
         { from: 'public', to: 'public' },
         { from: 'templates', to: 'templates' },
       ],
