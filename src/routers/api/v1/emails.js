@@ -16,8 +16,4 @@ router.post('/send', jsonParser, async (req, res) => {
   }
 });
 
-router.get('/test', jsonParser, (req, res) => {
-  res.status(200).json({ success: true });
-})
-
 module.exports = router;
