@@ -92,7 +92,7 @@ function deploy () {
   echo_box "Reloading nginx"
   echo
   sudo rm -f "${NGINX_ENABLED_PATH}"/*
-  sudo cp "config/${NGINX_CONFIG_FILE}" "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}"
+  # sudo cp "config/${NGINX_CONFIG_FILE}" "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}"
   sudo ln -s "${NGINX_AVAILABLE_PATH}/${NGINX_CONFIG_FILE}" "${NGINX_ENABLED_PATH}/${NGINX_CONFIG_FILE}"
   sudo service nginx reload
   sudo service nginx status | grep -v systemd
