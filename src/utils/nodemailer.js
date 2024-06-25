@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
-const { mailtrapToken, mailtrapSender, mailtrapRecipient }  = require('../config/env');
-const Logger = require('../utils/logger');
-const { getTemplate } = require('../utils/handlebars');
+const { mailtrapToken, mailtrapSender, mailtrapRecipient }  = require('@config/env');
+const Logger = require('@utils/logger');
+const { getTemplate } = require('@utils/handlebars');
 
 const transporter = nodemailer.createTransport({
   host: 'live.smtp.mailtrap.io',
