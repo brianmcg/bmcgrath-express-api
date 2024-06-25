@@ -37,7 +37,7 @@ function deploy () {
 
   if test -d "${APP_PATH}/repo"; then
     cd "${APP_PATH}/repo"
-    git stash
+    git stash && git stash clear
     git checkout main
     git pull origin main
   else

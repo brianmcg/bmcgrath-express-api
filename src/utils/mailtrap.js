@@ -1,12 +1,15 @@
 const { MailtrapClient } = require('mailtrap');
-const { token, sender, recipient } = require('../config/env');
-const logger = require('../utils/logger');
+const { mailtrapToken, mailtrapSender, mailtrapRecipient } = require('../config/env');
+const Logger = require('../utils/logger');
 const { getTemplate } = require('../utils/handlebars');
 
-const client = new MailtrapClient({ endpoint: 'https://send.api.mailtrap.io/', token });
+const client = new MailtrapClient({
+  endpoint: 'https://send.api.mailtrap.io/',
+  token: mailtrapToken,
+});
 
 async function send({ name, address, message }) {
-  logger.info(`Sending email to ${recipient}`);
+  Logger.info(`Sending email to ${mailtrapRecipient}`);
 
   const template = await getTemplate('templates/email.hbs');
 
@@ -15,14 +18,14 @@ async function send({ name, address, message }) {
   const paragraphs = message.split('\n').filter(Boolean);
 
   const response = await client.send({
-    from: { email: sender, name: 'Mailtrap 📧' },
-    to: [{ email: recipient }],
+    from: { email: mailtrapSender, name: 'Mailtrap 📧' },
+    to: [{ email: mailtrapRecipient }],
     subject: `Mailtrap message from ${name}`,
     text: `${title}. ${message}. ${reply}`,
     html: template({ title, paragraphs, reply }),
   });
 
-  logger.info('Recieved response from mailtrap', response);
+  Logger.info('Recieved mailtrap response', response);
 
   return { id: response.message_ids[0] };
 }
