@@ -24,8 +24,10 @@ const basicAuthOptions = {
 };
 
 const corsOptions = {
-  origin: ['https://www.bmcgrath.net'],
-  credentials: true,
+  origin: [
+    'http://localhost:5173',
+    'https://www.bmcgrath.net',
+  ],
 };
 
 app.use(cors(corsOptions));
