@@ -9,7 +9,6 @@ const basicAuth = require('express-basic-auth')
 const { rateLimit } = require('express-rate-limit');
 
 const env  = require('./config/env');
-const db = require('./config/database');
 const apiRouter = require('./routers/api');
 const Logger = require('./utils/logger');
 
