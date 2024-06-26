@@ -63,7 +63,7 @@ function deploy () {
   #-----------#
   echo_box "Running build"
   echo
-  webpack --env release=${TIMESTAMP}
+  webpack --env path="../releases/${TIMESTAMP}"
   echo
 
   #----------#

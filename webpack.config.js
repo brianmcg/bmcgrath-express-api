@@ -7,7 +7,7 @@ module.exports = env => ({
   mode: 'production',
   entry: './src/app.js',
   output: {
-    path: path.join(__dirname, env.release ? `../releases/${env.release}` : 'dist'),
+    path: path.join(__dirname, env.path ? env.path : 'dist'),
     publicPath: '/',
     filename: 'app.min.js',
   },
