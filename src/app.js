@@ -9,6 +9,7 @@ const basicAuth = require('express-basic-auth')
 const { rateLimit } = require('express-rate-limit');
 
 const env  = require('./config/env');
+const db = require('./config/database');
 const apiRouter = require('./routers/api');
 const Logger = require('./utils/logger');
 
@@ -50,4 +51,4 @@ app.set('trust proxy', 1);
 
 app.get('/up', (req, res) => res.send('Server is up!'));
 
-app.listen(port, () => Logger.info(`Running in ${process.env.NODE_ENV} mode at port ${port}`));
+app.listen(port, () => Logger.info(`Running in ${process.env.NODE_ENV} mode at port ${port}.`));

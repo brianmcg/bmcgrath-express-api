@@ -19,5 +19,10 @@ module.exports = {
   api: {
     user: process.env.API_USER,
     password: process.env.API_PASS,
+  },
+  database: {
+    name: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
   }
 };

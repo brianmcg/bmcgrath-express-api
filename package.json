@@ -14,11 +14,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "_moduleAliases": {
-    "@utils": "src/utils",
-    "@config": "src/config"
+    "@config": "src/config",
+    "@models": "src/models",
+    "@controllers": "src/controllers",
+    "@utils": "src/utils"
   },
   "dependencies": {
-    "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -31,6 +32,9 @@
     "mailtrap": "^3.3.0",
     "module-alias": "^2.2.3",
     "nodemailer": "^6.9.13",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3",
     "winston": "^3.13.0"
   },
   "devDependencies": {
