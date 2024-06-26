@@ -1,16 +1,15 @@
 const { MailtrapClient } = require('mailtrap');
-const { mailtrapToken, mailtrapSender, mailtrapEndpoint, emailRecipient } = require('@config/env');
+const env = require('@config/env');
 const Logger = require('@utils/logger');
 const { getTemplate } = require('@utils/handlebars');
 
-const client = new MailtrapClient({
-  endpoint: mailtrapEndpoint,
-  token: mailtrapToken,
-});
+const { token, sender, endpoint, recipient } = env.mailtrap;
+
+const client = new MailtrapClient({ endpoint, token });
 
 async function send({ name, address, message }) {
-  Logger.info(`Sending email to ${emailRecipient} from ${mailtrapSender}`);
-  Logger.info(`Sent by ${name} <${address}>`);
+  Logger.info(`Send request from ${name} <${address}>`);
+  Logger.info(`Sending email to ${recipient} from ${sender}`);
 
   const template = await getTemplate('templates/email.hbs');
 
@@ -19,15 +18,16 @@ async function send({ name, address, message }) {
   const paragraphs = message.split('\n').filter(Boolean);
 
   const response = await client.send({
-    from: { email: mailtrapSender, name: 'Mailtrap 📧' },
-    to: [{ email: emailRecipient }],
+    from: { email: sender, name: 'Mailtrap 📧' },
+    to: [{ email: recipient }],
     subject: `Mailtrap message from ${name}`,
     text: `${title}. ${message}. ${reply}`,
     html: template({ title, paragraphs, reply }),
     category: process.env.NODE_ENV.toUpperCase(),
   });
 
-  Logger.info('Recieved mailtrap response', response);
+  Logger.info('Recieved mailtrap response');
+  Logger.info(response);
 
   return { id: response.message_ids[0] };
 }

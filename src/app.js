@@ -8,9 +8,11 @@ const RateLimit = require('express-rate-limit');
 const minify = require('express-minify');
 const basicAuth = require('express-basic-auth')
 
-const { apiUser, apiPass }  = require('./config/env');
+const env  = require('./config/env');
 const Logger = require('./utils/logger');
 const apiRouter = require('./routers/api');
+
+const { user, password } = env.api;
 
 const port = 8080;
 
@@ -19,7 +21,7 @@ const app = express();
 const rateLimitOptions = { windowMs: 60000, max: 20 };
 
 const basicAuthOptions = {
-  users: { [apiUser]: apiPass },
+  users: { [user]: password },
   unauthorizedResponse: 'HTTP Basic: Access denied.',
 };
 

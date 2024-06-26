@@ -1,19 +1,20 @@
 const nodemailer = require('nodemailer');
-const { nodemailerHost, nodemailerUser, nodemailerPass, mailtrapSender, emailRecipient }  = require('@config/env');
+const env = require('@config/env');
 const Logger = require('@utils/logger');
 const { getTemplate } = require('@utils/handlebars');
 
+const { host, user, pass, sender, recipient } = env.nodemailer;
+
 const transporter = nodemailer.createTransport({
-  host: nodemailerHost,
+  host,
   port: 587,
-  auth: { user: nodemailerUser, pass: nodemailerPass },
+  auth: { user, pass },
   tls: { rejectUnauthorized: false }
 });
 
-
 async function send({ name, address, message }) {
-  Logger.info(`Sending email to ${emailRecipient} from ${mailtrapSender}`);
-  Logger.info(`Sent by ${name} <${address}>`);
+  Logger.info(`Send request from ${name} <${address}>`);
+  Logger.info(`Sending email to ${recipient} from ${sender}`);
 
   const template = await getTemplate('templates/email.hbs');
 
@@ -22,15 +23,16 @@ async function send({ name, address, message }) {
   const paragraphs = message.split('\n').filter(Boolean);
 
 	const response = await transporter.sendMail({
-    from: `"Mailtrap 📧" <${mailtrapSender}>`,
-    to: emailRecipient,
+    from: `"Mailtrap 📧" <${sender}>`,
+    to: recipient,
     subject: `Mailtrap message from ${name}`,
     text: `${title}. ${message}. ${reply}`,
     html: template({ title, paragraphs, reply }),
     category: process.env.NODE_ENV.toUpperCase(),
   });
 
-  Logger.info('Recieved nodemailer response', response);
+  Logger.info('Recieved mailtrap response');
+  Logger.info(response);
 
   return { id: response.messageId.replace(/[<>]/g, '').split('@')[0] };
 }

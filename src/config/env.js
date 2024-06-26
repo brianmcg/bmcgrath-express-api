@@ -3,13 +3,21 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 module.exports = {
-  mailtrapToken: process.env.MAILTRAP_TOKEN,
-  mailtrapEndpoint: process.env.MAILTRAP_ENDPOINT,
-  mailtrapSender: process.env.MAILTRAP_SENDER,
-  nodemailerHost: process.env.NODEMAILER_HOST,
-  nodemailerUser: process.env.NODEMAILER_USER,
-  nodemailerPass: process.env.NODEMAILER_PASS,
-  emailRecipient: process.env.EMAIL_RECIPIENT,
-  apiUser: process.env.API_USER,
-  apiPass: process.env.API_PASS,
+  mailtrap: {
+    token: process.env.MAILTRAP_TOKEN,
+    endpoint: process.env.MAILTRAP_ENDPOINT,
+    sender: process.env.MAILTRAP_SENDER,
+    recipient: process.env.EMAIL_RECIPIENT,
+  },
+  nodemailer: {
+    host: process.env.NODEMAILER_HOST,
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.MAILTRAP_TOKEN,
+    recipient: process.env.EMAIL_RECIPIENT,
+    sender: process.env.MAILTRAP_SENDER,
+  },
+  api: {
+    user: process.env.API_USER,
+    password: process.env.API_PASS,
+  }
 };
