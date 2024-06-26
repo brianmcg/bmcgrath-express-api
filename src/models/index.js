@@ -4,35 +4,37 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const { database, username, password, ...config } = require(__dirname + '/../../config/database');
 
-const db = {};
+const db = new Sequelize(database, username, password, {
+  ...config,
+  define: { underscored: true },
+});
 
-const sequelize = new Sequelize(database, username, password, config);
-// sequelize = new Sequelize(process.env[config.use_env_variable], config);
-
-sequelize.authenticate().then(
-  () => console.info('Connection to database has been established successfully.'),
-  error => console.error(`Unable to connect to the database: ${error.toString()}.`),
-);
-
-fs.readdirSync(__dirname)
+const models = fs.readdirSync(__dirname)
   .filter(file => (
     file.indexOf('.') !== 0 &&
     file !== basename &&
     file.slice(-3) === '.js' &&
     file.indexOf('.test.js') === -1
   ))
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+  .reduce((memo, file) => {
+    const Model = require(path.join(__dirname, file));
+    const model = Model(db, Sequelize.DataTypes);
+    return { [model.name]: model };
+  }, {});
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+Object.keys(models).forEach(name => {
+  if (models[name].associate) {
+    models[name].associate(models);
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+(async () => {
+  try {
+    db.authenticate();
+    console.info('Connection to database established.');
+  } catch (error) {
+    console.error(`Unable to connect to the database: ${error.toString()}.`);
+  }
+})();
 
-module.exports = db;
+module.exports = models;

@@ -1,4 +1,4 @@
-const Post = require('@models/post');
+const { Post } = require('@models');
 const Logger = require('@utils/logger');
 
 // Controller method to get all Posts
