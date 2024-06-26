@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
 
 module.exports = {
   mailtrap: {
@@ -22,7 +22,7 @@ module.exports = {
   },
   database: {
     name: process.env.DB_NAME,
-    user: process.env.DB_USER,
+    username: process.env.DB_USER,
     password: process.env.DB_PASS,
   }
 };
