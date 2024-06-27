@@ -5,7 +5,7 @@ const Logger = require('@utils/logger');
 const jsonParser = bodyParser.json()
 const router = express.Router();
 
-router.get('/', jsonParser, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const posts = await Post.findAll();
     res.json(posts);
@@ -15,7 +15,7 @@ router.get('/', jsonParser, async (req, res) => {
   }
 });
 
-router.get('/:id', jsonParser, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id);
 
@@ -40,7 +40,7 @@ router.post('/', jsonParser, async (req, res) => {
   }
 });
 
-router.put('/:id',jsonParser, async (req, res) => {
+router.put('/:id', jsonParser, async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id);
 
@@ -57,7 +57,7 @@ router.put('/:id',jsonParser, async (req, res) => {
   }
 });
 
-router.delete('/:id', jsonParser, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id);
 

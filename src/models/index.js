@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const Logger = require('@utils/logger');
 const basename = path.basename(__filename);
 const { database, username, password, ...config } = require(__dirname + '/../../config/database');
 
@@ -31,9 +32,9 @@ Object.keys(models).forEach(name => {
 (async () => {
   try {
     db.authenticate();
-    console.info('Connection to database established.');
+    Logger.info('Connection to database established.');
   } catch (error) {
-    console.error(`Unable to connect to the database: ${error.toString()}.`);
+    Logger.error(`Unable to connect to the database: ${error.toString()}.`);
   }
 })();
 
