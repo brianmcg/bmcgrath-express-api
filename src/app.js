@@ -38,13 +38,12 @@ const rateLimitOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(basicAuth(basicAuthOptions));
 app.use(rateLimit(rateLimitOptions));
 app.use(helmet());
 app.use(compression());
 app.use(minify());
 
-app.use('/api', apiRouter);
+app.use('/api', basicAuth(basicAuthOptions), apiRouter);
 
 app.set('trust proxy', 1);
 
